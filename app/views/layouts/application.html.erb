@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <title>ChinaData</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="container-fluid">
+    <%= yield %>
+  </body>
+</html>
