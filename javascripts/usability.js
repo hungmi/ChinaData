@@ -15,16 +15,13 @@ $(document).on("click", "#hide-map-btn", function(e){
 		btn.innerHTML = '<i class="fa fa-angle-double-left"></i>' + " " + "顯示地圖"
 	}
 })
-$(window).on("turbolinks:load", function(){
-	Split(["#table_wrapper", "#map_wrapper"], {sizes: [50,50], direction: "horizontal"})
-})
 $(document).on("change", ".hide-column-btn input", function(){
 	window.data_table.column( $(this).data("column") ).visible( $(this).is(":checked") );
 })
-$(window).on("turbolinks:load resize", function(){
-	if (window.innerWidth < 992) {
-		document.querySelector("#table_wrapper").style.height = window.innerHeight - document.querySelector("#map_wrapper").offsetHeight - 15 + "px"
-	} else {
-		document.querySelector("#table_wrapper").style.height = window.innerHeight - 15 + "px"
-	}
+$(window).on("resize", function(){
+	// if (window.innerWidth < 992) {
+	// 	document.querySelector("#table_wrapper").style.height = window.innerHeight - document.querySelector("#map_wrapper").offsetHeight - 15 + "px"
+	// } else {
+	// 	document.querySelector("#table_wrapper").style.height = window.innerHeight - 15 + "px"
+	// }
 })
