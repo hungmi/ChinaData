@@ -12,5 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require papaparse
+//= require import_csv
 //= require turbolinks
 //= require_tree .

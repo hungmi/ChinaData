@@ -10,7 +10,7 @@
 		<div class="col-10 hide-column-btns" style="display: none;">
 		</div>
 		<div class="col-2">
-			<a href="#" class="btn btn-outline-primary btn-sm pull-right" id="hide-map-btn">隱藏地圖</a>
+			<a href="#" class="btn btn-outline-primary btn-sm pull-right" id="hide-map-btn"><i class="fa fa-angle-double-right"></i> 隱藏地圖</a>
 		</div>
 		</div>
 		<table class="display" cellspacing="0" width="100%"" id="my-table">
@@ -22,102 +22,8 @@
 		</table>
 	</div>
 	<div class="px-3 pb-3" id="map_wrapper">
-		<%= render_svg "china_maps/aaaaa.svg", id: "map_svg" %>
-		<div id="info_block"></div>
+		<%= render_svg "china_maps/China.svg", id: "map_svg" %>
+		<div class="clearfix"></div>
 	</div>
 </div>
-
-<script type="text/javascript">
-	$(document).on("click", "#hide-map-btn", function(e){
-		e.preventDefault()
-		var btn = e.target
-		var map_wrapper = document.querySelector("#map_wrapper")
-		var table_wrapper = document.querySelector("#table_wrapper")
-		if (map_wrapper.style.display == "none") {
-			table_wrapper.style.width = table_wrapper.dataset.width
-			map_wrapper.style.display = "block"
-			btn.innerHTML = "隱藏地圖"
-		} else {
-			table_wrapper.dataset.width = table_wrapper.offsetWidth - 1 + "px"
-			map_wrapper.style.display = "none"
-			table_wrapper.style.width = "100%"
-			btn.innerHTML = "顯示地圖"
-		}
-	})
-	$(window).on("turbolinks:load", function(){
-		Split(["#table_wrapper", "#map_wrapper"], {sizes: [50,50], direction: "horizontal"})
-	})
-	$(document).on("change", ".hide-column-btn input", function(){
-		window.data_table.column( $(this).data("column") ).visible( $(this).is(":checked") );
-	})
-	$(window).on("turbolinks:load resize", function(){
-		if (window.innerWidth < 992) {
-			document.querySelector("#table_wrapper").style.height = window.innerHeight - document.querySelector("#map_wrapper").offsetHeight - 15 + "px"
-		} else {
-			document.querySelector("#table_wrapper").style.height = window.innerHeight - 15 + "px"
-		}
-	})
-	$("#map_svg path").on("mouseover", function(){
-		$("tr." + $(this).attr("id")).addClass("bg-success")
-		$(this).attr("fill", "blue")
-		// var x = event.clientX;
-		// var y = event.clientY;
-		// var info_block = document.querySelector("#info_block")
-		// info_block.style.top = y + "px"
-		// info_block.style.visibility = "visible"
-	})
-	$("#map_svg path").on("mouseleave", function(){
-		$("tr." + $(this).attr("id")).removeClass("bg-success")
-		$(this).attr("fill", "#808080")
-	})
-	$("#file").on("change", function(){
-		Papa.parse(document.querySelector("#file").files[0], {
-			error: function(){
-				console.warn("failed")
-			},
-			complete: function(res){
-				window.datas = res
-				window.datas.data[0].forEach(function(title) {
-					var th = document.createElement("TH")
-					th.innerHTML = " " + title // + ' <i class="fa fa-sort"></i>'
-					document.querySelector("#my-table thead tr").appendChild(th)
-				})
-				window.datas.data.shift() // Drop titles row
-				window.datas.data.forEach(function(rows) {
-					var tr = document.createElement("TR")
-					// tr.classList.add("item")
-					document.querySelector("#my-table tbody").appendChild(tr)
-					rows.forEach(function(cell){
-						var td = document.createElement("TD")
-						td.innerHTML = cell
-						document.querySelector("#my-table tbody tr:last-child").appendChild(td)
-					})
-				})
-				window.data_table = $('#my-table').DataTable({
-					"pageLength": 10
-				})
-				var input = document.createElement("input")
-				input.type = "checkbox"
-				input.classList.add("form-check-input")
-				document.querySelectorAll('#my-table thead tr th').forEach(function(th, index){
-					//
-					var check_box = document.createElement("label")
-					check_box.classList.add("form-check-label")
-					check_box.classList.add("hide-column-btn")
-					check_box.innerHTML = th.innerHTML
-					//
-					var input = document.createElement("input")
-					input.type = "checkbox"
-					input.dataset.column = index
-					input.checked = true
-					input.classList.add("form-check-input")
-					var hide_column_btns = document.querySelector(".hide-column-btns")
-					hide_column_btns.appendChild(check_box)
-					hide_column_btns.style.display = "block"
-					document.querySelector(".hide-column-btn:last-child").prepend(input)
-					document.querySelector("#file-wrapper").style.display = "none"
-				})
-			}
-		})
-	})
-</script>
+<!-- document.querySelector("#Taiwan").style.fill = "#988" -->
